@@ -18,25 +18,32 @@ public class PlayerController : MonoBehaviour
     private float xRange = 9.5f;
     private float zRange = 7f;
 
-    private int puntos = 0;
+    private int monedas = 0;
     private int vidas = 3;
 
     public bool isGameOver;
 
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip goodClip;
+    [SerializeField] private AudioClip badClip;
+    [SerializeField] private AudioSource cameraAudioSource;
+
+    [SerializeField] private ParticleSystem GoodParticleSystem;
+    [SerializeField] private ParticleSystem BadParticleSystem;
+
     private void Awake()
     {
-        
+        playerAudioSource = GetComponent<AudioSource>();
     }
 
     void Start()
     {
-        Debug.Log("Puntos = " + puntos);
+        Debug.Log("Monedas = " + monedas);
         Debug.Log("Vidas = " + vidas);
     }
 
     void Update()
     {
-
         
 
         horizontalInput = Input.GetAxis("Horizontal");
@@ -83,29 +90,44 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag(GOOD))
         {
+
+            playerAudioSource.PlayOneShot(goodClip, 0.4f);
             Destroy(collision.gameObject);
-            puntos = puntos + 5;
-            Debug.Log("Puntos = " + puntos);
+            monedas++;
+            Debug.Log("Monedas = " + monedas);
+            //GoodParticleSystem.Play();
+            Instantiate(GoodParticleSystem, transform.position, transform.rotation);
+
+            if (monedas == 50)
+            {
+
+                Debug.Log("YOU WIN");
+                Time.timeScale = 0;
+                isGameOver = true;
+
+            }
 
         }
 
         if (collision.gameObject.CompareTag(BAD))
         {
 
+            playerAudioSource.PlayOneShot(badClip, 0.6f);
             Destroy(collision.gameObject);
             vidas = vidas - 1;
             Debug.Log("Vidas = " + vidas);
+            Instantiate(BadParticleSystem, transform.position, transform.rotation);
 
             if (vidas == 0)
             {
                 isGameOver = true;
                 Debug.Log("GAME OVER");
+                Time.timeScale = 0;
+                cameraAudioSource.volume = 0.05f;
+
             }
-            
 
         }
-
-        Destroy(collision.gameObject);
 
     }
 

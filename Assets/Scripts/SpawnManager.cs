@@ -11,6 +11,8 @@ public class SpawnManager : MonoBehaviour
     private float spawnRangeX = 8.60f;
     private float spawnRangeZ = 6.40f;
 
+    private float coinSpeed = 10f;
+
     [SerializeField] private float startDelay = 2f;
     [SerializeField] private float spawnInterval = 4f;
 
@@ -29,6 +31,8 @@ public class SpawnManager : MonoBehaviour
 
     private void Update()
     {
+        transform.Rotate(Vector3.up * coinSpeed * Time.deltaTime);
+
         if (playerControllerScript.isGameOver)
         {
             CancelInvoke("SpawnRandomCoin");
@@ -42,7 +46,7 @@ public class SpawnManager : MonoBehaviour
 
         Instantiate(coinArray[coinIndex],
             RandomSpawnPos(),
-            Quaternion.identity);
+            Quaternion.Euler(0, 0, 90)) ;
 
     }
 

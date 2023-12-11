@@ -341,7 +341,8 @@ MonoBehaviour:
   badClip: {fileID: 8300000, guid: 55d14a86187f389459ef8cbec5f9ceb6, type: 3}
   cameraAudioSource: {fileID: 476106890}
   GoodParticleSystem: {fileID: 2993627202300941793, guid: 8a7aafe10f017fc4f83aa119b02c332c, type: 3}
-  BadParticleSystem: {fileID: 9159804394788902579, guid: 74b21ce2760389e4ea808cca3ecf5049, type: 3}
+  BadParticleSystem: {fileID: 7226888052703040407, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
+  DeadParticleSystem: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
 --- !u!82 &177611668
 AudioSource:
   m_ObjectHideFlags: 0

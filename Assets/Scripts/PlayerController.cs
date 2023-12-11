@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private ParticleSystem GoodParticleSystem;
     [SerializeField] private ParticleSystem BadParticleSystem;
+    [SerializeField] private ParticleSystem DeadParticleSystem;
 
     private void Awake()
     {
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
             monedas++;
             Debug.Log("Monedas = " + monedas);
             //GoodParticleSystem.Play();
-            Instantiate(GoodParticleSystem, transform.position, transform.rotation);
+            Instantiate(GoodParticleSystem, collision.transform.position, transform.rotation);
 
             if (monedas == 50)
             {
@@ -116,19 +117,26 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             vidas = vidas - 1;
             Debug.Log("Vidas = " + vidas);
-            Instantiate(BadParticleSystem, transform.position, transform.rotation);
+            Instantiate(BadParticleSystem, collision.transform.position, BadParticleSystem.transform.rotation);
+            
 
             if (vidas == 0)
             {
                 isGameOver = true;
                 Debug.Log("GAME OVER");
-                Time.timeScale = 0;
+                speed = 0;
                 cameraAudioSource.volume = 0.05f;
+                Invoke("DeadParticles", 0.75f);
 
             }
 
         }
 
+    }
+
+    private void DeadParticles()
+    {
+        Instantiate(DeadParticleSystem, transform.position, DeadParticleSystem.transform.rotation);
     }
 
 }

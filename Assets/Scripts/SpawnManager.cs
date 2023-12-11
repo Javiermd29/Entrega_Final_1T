@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
     {
         transform.Rotate(Vector3.up * coinSpeed * Time.deltaTime);
 
-        if (playerControllerScript.isGameOver)
+        if (playerControllerScript.isGameOver || playerControllerScript.youWin)
         {
             CancelInvoke("SpawnRandomCoin");
         }

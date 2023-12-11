@@ -337,12 +337,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
+  youWin: 0
   goodClip: {fileID: 8300000, guid: 5cdc4c6752ca9d94698bd4c8e1d4e33d, type: 3}
   badClip: {fileID: 8300000, guid: 55d14a86187f389459ef8cbec5f9ceb6, type: 3}
+  winClip: {fileID: 8300000, guid: 7ccb1fd281555da4490fcd62be1338aa, type: 3}
+  deathClip: {fileID: 8300000, guid: f5eed3bd1e180b14384e864c461dd86a, type: 3}
   cameraAudioSource: {fileID: 476106890}
   GoodParticleSystem: {fileID: 2993627202300941793, guid: 8a7aafe10f017fc4f83aa119b02c332c, type: 3}
   BadParticleSystem: {fileID: 7226888052703040407, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
   DeadParticleSystem: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  WinParticleSystem: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
 --- !u!82 &177611668
 AudioSource:
   m_ObjectHideFlags: 0

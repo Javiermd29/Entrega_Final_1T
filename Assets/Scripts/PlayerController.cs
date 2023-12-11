@@ -22,19 +22,27 @@ public class PlayerController : MonoBehaviour
     private int vidas = 3;
 
     public bool isGameOver;
+    public bool youWin;
 
     private AudioSource playerAudioSource;
+    [SerializeField] private AudioSource cameraAudioSource;
+
     [SerializeField] private AudioClip goodClip;
     [SerializeField] private AudioClip badClip;
-    [SerializeField] private AudioSource cameraAudioSource;
+    [SerializeField] private AudioClip winClip;
+    [SerializeField] private AudioClip deathClip;
 
     [SerializeField] private ParticleSystem GoodParticleSystem;
     [SerializeField] private ParticleSystem BadParticleSystem;
     [SerializeField] private ParticleSystem DeadParticleSystem;
+    [SerializeField] private ParticleSystem WinParticleSystem;
+
+    private Animator anim;
 
     private void Awake()
     {
         playerAudioSource = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -99,12 +107,16 @@ public class PlayerController : MonoBehaviour
             //GoodParticleSystem.Play();
             Instantiate(GoodParticleSystem, collision.transform.position, transform.rotation);
 
-            if (monedas == 50)
+            if (monedas == 3)
             {
-
+                youWin = true;
                 Debug.Log("YOU WIN");
-                Time.timeScale = 0;
-                isGameOver = true;
+                speed = 0;
+                Invoke("WinParticles", 0.75f);
+                cameraAudioSource.Stop();
+                cameraAudioSource.clip = winClip;
+                cameraAudioSource.Play();
+
 
             }
 
@@ -118,6 +130,8 @@ public class PlayerController : MonoBehaviour
             vidas = vidas - 1;
             Debug.Log("Vidas = " + vidas);
             Instantiate(BadParticleSystem, collision.transform.position, BadParticleSystem.transform.rotation);
+            anim.SetTrigger("BadCoinCollected");
+           
             
 
             if (vidas == 0)
@@ -125,7 +139,9 @@ public class PlayerController : MonoBehaviour
                 isGameOver = true;
                 Debug.Log("GAME OVER");
                 speed = 0;
-                cameraAudioSource.volume = 0.05f;
+                cameraAudioSource.Stop();
+                cameraAudioSource.clip = deathClip;
+                cameraAudioSource.Play();
                 Invoke("DeadParticles", 0.75f);
 
             }
@@ -137,6 +153,11 @@ public class PlayerController : MonoBehaviour
     private void DeadParticles()
     {
         Instantiate(DeadParticleSystem, transform.position, DeadParticleSystem.transform.rotation);
+    }
+
+    private void WinParticles()
+    {
+        Instantiate(WinParticleSystem, transform.position, WinParticleSystem.transform.rotation);
     }
 
 }

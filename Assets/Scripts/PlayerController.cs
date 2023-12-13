@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private const string GOOD = "Good Coin";
     private const string BAD = "Bad Coin";
 
+    //VARIABLES
     private float speed = 10f;
 
     private float horizontalInput;
@@ -53,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        
 
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * speed * Time.deltaTime * horizontalInput);
@@ -104,10 +104,9 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             monedas++;
             Debug.Log("Monedas = " + monedas);
-            //GoodParticleSystem.Play();
             Instantiate(GoodParticleSystem, collision.transform.position, transform.rotation);
 
-            if (monedas == 3)
+            if (monedas == 50)
             {
                 youWin = true;
                 Debug.Log("YOU WIN");
@@ -116,7 +115,6 @@ public class PlayerController : MonoBehaviour
                 cameraAudioSource.Stop();
                 cameraAudioSource.clip = winClip;
                 cameraAudioSource.Play();
-
 
             }
 

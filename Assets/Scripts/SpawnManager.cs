@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
+    //VARIABLES
     [SerializeField] private GameObject[] coinArray;
     private int coinIndex;
 
